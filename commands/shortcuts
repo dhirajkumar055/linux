@@ -1,0 +1,16 @@
+#Remove blank lines
+awk 'NF'
+sed '/^$/d'
+
+Print first line
+awk '++d == 1'
+
+Print line next to empty line
+ifconfig|awk '++d == 1; !NF{d=0};
+
+how to check installed packages in ubuntu?
+apt list --installed
+
+how to remove a package in ubuntu?
+apt-get remove <packageName>
+

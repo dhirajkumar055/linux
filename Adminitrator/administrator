@@ -1,0 +1,99 @@
+How to add user and groups?
+
+How to check groups?
+Check /etc/group
+getent group
+
+How to check users?
+/etc/passwd
+
+Check os details
+cat /etc/*release*
+
+Install ping
+apt-get update
+apt-get install iputils-ping
+
+Insatll mclient
+apt install default-mysql-client/stable -y
+Mysql: To access outside the current user
+ALTER USER 'username' IDENTIFIED WITH mysql_native_password BY 'password';
+
+Download diff check 
+sudo apt-get install libghc-diff-doc
+sudo apt update 
+sudo apt upgrade -y
+sudo apt-get install -y kompare
+
+
+I would try to first clean with
+sudo apt-get clean
+then try
+sudo dpkg --configure -a
+or/and
+sudo apt upgrade --fix-missing
+
+sudo update-rc.d dbus defaults
+sudo update-rc.d bluetooth defaults
+sudo apt-get install -f
+
+
+Add into /etc/sudoers.d/username
+%username ALL=(ALL) NOPASSWD: ALL
+echo "%spinnaker ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/spinnaker
+
+How to use basedir?
+#!/usr/bin/env bash
+BASEDIR=$(dirname "$0")
+echo "$BASEDIR"
+
+Sequence
+seq 7000 7005
+
+How to flush iptables?
+
+Why to flush iptables?
+
+
+How to install route command on ubuntu?
+apt-get install net-tools
+
+How to install ping command on ubuntu?
+apt install iputils-ping
+
+How to install ip command?
+apt install -y iproute2
+
+How to install ssh command?
+apt-get install openssh-client -y
+
+How to add a route?
+ip route add 172.17.0.0/16 via 172.17.0.1
+
+How to delete a route?
+ip route del 172.17.0.0/16
+
+Packet forwarding is the relaying of packets from one network segment to another by nodes in a computer network. The network layer in the OSI model is responsible for packet forwarding.
+
+How to allow packet forwarding?
+Check /proc/sys/net/ipv4/ip_forward
+0 for not forwarding
+1 for forwarding 
+Also change in /etc/sysctl.conf
+#net.ipv6.conf.all.forwarding=1
+
+How to list interfaces on the host?
+ip link
+
+How to check the ip addresses assigned to the interfaces?
+ip addr
+
+Free cache memory
+sync; echo 3 > /proc/sys/vm/drop_caches
+
+ERRORS
+useradd: group spinnaker exists - if you want to add this user to that group, use -g.
+-g groupname
+
+How to create a soft link in Linux?
+ln -s /path/to/source <linkName>

@@ -1,0 +1,47 @@
+1. Ping Test
+ping -c 1 google.com
+
+Inside scripts
+ping -c 1 -q google.com >&/dev/null; echo $?
+0
+
+2. Check port availability using cat, echo..
+cat < /dev/null > /dev/tcp/8.8.8.8/53; echo $?
+0 means connected to internet
+
+3. DNS lookup using nslookup, host etc..
+nslookup google.com
+host www.google.com
+dig www.google.com
+
+4. Curl
+curl -Is  http://www.google.com | head -n 1
+
+5. Telnet
+telnet 8.8.8.8 53
+
+6. Nmap
+sudo apt install nmap -y
+nmap -p 443 google.com
+
+7. netcat or nc
+nc -vz google.com 443
+
+8. wget
+wget -q --spider http://google.com ; echo $?
+0 means connected to internet
+
+9. Traceroute
+traceroute www.google.com
+
+Script:******************
+#!/bin/bash             *
+url="url"               *
+wget -q --spider ${url} *
+                        *
+if [ $? -eq 0 ]; then   *
+    echo "Online"       *
+else                    *
+    echo "Offline"      *
+fi                      *
+*************************

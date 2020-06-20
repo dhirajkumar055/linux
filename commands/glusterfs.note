@@ -1,0 +1,120 @@
+#https://www.youtube.com/playlist?list=PL34sAs7_26wOwCvth-EjdgGsHpTwbulWq
+
+lxc list
+
+yum install -y centos-release-gluster
+Edit /etc/yum.repos.d/CentOS-Gluster-7.repo
+Enable centos-gluster-7
+by changing enabled=1
+Disable centos-gluster-7-test
+by changing enabled=0
+
+yum search glusterfs
+yum info glusterfs-server
+yum install -y glusterfs-server
+Check: systemctl status glusterd
+systemctl enable glusterd
+systemctl start glusterd
+
+Make sure gluster fs machine are able to ping each other
+and client machine is able to ping all gluster machines
+
+gluster peer status
+
+Connect gluster1 with gluster2
+gluster peer probe gluster2
+
+gluster volume list
+
+Create volume and bricks
+gluster volume create volume1 replica 2 gluster1:/gluster/brick1 gluster2:/gluster/brick1
+if error comes add force at the end of command
+
+gluster volume list
+gluster volume info
+
+gluster volume start volume1
+gluster volume status
+
+Create new directory /mnt/volume1
+
+Mount glusterfs
+mount -t glusterfs gluster1:volume1 /mnt/volume1
+
+Delete Volumes
+Unmount
+umount /mnt/volume1
+rm -rf /mnt/volume1
+gluster volume stop volume1
+gluster volume delete volume1
+
+
+Create distributed volume
+gluster volume create volume2 gluster1:/gluster/brick2 gluster2:/gluster/brick2 force
+gluster volume list
+gluster volume status
+gluster volume start volume2
+gluster volume status
+gluster volume info
+
+
+Mount in client machine
+mkdit /mnt/volume2
+mount -t glusterfs gluster1:volume2 /mnt/volume2
+mount|grep volume
+
+
+glusterfs help commands
+gluster help
+gluster peer help
+gluster peer status
+gluster pool list
+gluster peer detach gluster2
+gluster volume help
+
+gluster volume sync gluster2 volume1
+
+
+Gluster Quota
+gluster volume quota volume1 list
+gluster volume quota volume1 enable
+gluster volume quota volume1 list
+Configure quota
+gluster volume quota volume1 limit-usage / 20MB
+gluster volume quota volume1 limit-usage /data1 5MB
+gluster volume quota volume1 limit-usage /data2 15MB
+
+Disable quota
+gluster volume quota volume1 disable
+Create a file of 5MB
+dd if=/dev/urandom of=myfile1 bs=5MB count=1
+
+
+Add brick to existing volume
+gluster volume add-brick volume1 gluster2:/gluster/brick1 force
+
+Re-distribute the data
+gluster volume rebalance volume1 start
+gluster volume rebalance volume1 status
+
+Remove brick
+gluster volume remove-brick volume1 gluster2:/gluster/brick1 start ========Syncs/copy data
+gluster volume info
+gluster volume remove-brick volume1 gluster2:/gluster/brick1 commit  ========Deletes bricks
+
+Check authentication
+gluster volume get volume1 auth.allow
+
+gluster volume get volume1 auth.reject
+
+Check available options
+gluster volume get volume1 all | less
+
+Blacklist a host for mounting
+gluster volume set volume1 auth.reject <csv ips or regex of ips or dns  name>
+
+Log file
+/var/log/glusterfs/
+
+Reset the options
+gluster volume reset volume1 auth.reject

@@ -1,0 +1,222 @@
+Print odd numbers between 1 to 100?
+echo {1..100}|tr ' ' '\n'|awk 'NR%2~1'
+Using loops
+for i in {1..100}
+do
+if [ $((i%2)) = 1 ]; then
+echo $i
+fi
+done
+
+
+How to read in bash?
+read variable
+
+How to add, subtract, multiply and divide?
+read a
+read b
+echo $(($a+$b))
+echo $(($a-$b))
+echo $(($a*$b))
+echo $(($a/$b))
+
+#How to check if X>Y
+read x
+read y
+if [[ $x > $y ]]
+then
+echo X is greater than Y
+fi
+if [[ $x == $y ]]
+then
+echo X is equal to Y
+fi
+if [[ $x < $y ]]
+then
+echo X is less than Y
+fi
+
+How to make all characters to uppercase in  a variable?
+d="dheeraj"
+echo ${d^}
+Dheeraj
+echo ${d^^}
+DHEERAJ
+
+read a
+if [[ ${a^^} = 'Y' ]]
+then
+echo "YES"
+else
+echo "NO"
+fi
+
+&& - and
+|| - or
+
+How to format upto 3 decimal points?
+read d
+printf "%.3f\n" $(echo $d|bc -l)
+
+#Compute the average
+read a
+sum=0
+while [[ $a > 0 ]]
+do
+read x
+sum=$(($sum+$x))
+done
+printf "%.3f" $(echo $sum/$a|bc -l)
+
+
+How to read till the input is given?
+while read a
+do
+echo $a
+done
+
+Output 2nd to 7th character
+cut -c2-7
+
+Multiple character delimiter in cut?
+cut -d $'\t' -f1-3
+1st to 3rd columns
+
+Print first 20 lines of file?
+cat filename|head -20
+cat filename|head -n 20
+
+Print first 20 characters of file?
+cat filename|head -c 20
+
+Print lines between 12 to 22 inclusive?
+awk 'NR>=12 && NR<=22'
+head -n 22 | tail -n +12
+sed -n '12,22p'
+cut -d$'\n' -f12-22
+
+Last 20 characters
+tail -c20
+
+Convert brackets
+tr "()" "[]"
+
+Delete lowercase letters
+tr -d 'a-z'
+tr -d [:lower:]
+
+Replace all sequences of multiple spaces with just one space.
+
+How to replace multiple occurence of characters into one?
+tr -s " "
+
+How to sort in linux?
+sort
+How to sort in reverse?
+sort -r
+How to sort according to numeric?
+sort -n
+
+How to sort numberic in reverse order?
+sort -rn
+
+How to sort according to 2nd column with delimiter as tab?
+sort -t$'\t' -k2 -rn
+
+How to remove consecutive duplicate lines?
+uniq
+	-c	Prefix lines by the number of occurrences
+	-d	Only print duplicate lines
+	-u	Only print unique lines
+	-i	Ignore case
+	-f N	Skip first N fields
+	-s N	Skip first N chars (after any skipped fields)
+	-w N	Compare N characters in line
+
+How to remove initial spaces?
+awk '$1=$1'
+sed "s/^[[:space:]]*//g" 
+xargs -l
+
+How to merge lines?
+    paste - merge lines of files
+       -d, --delimiters=LIST
+              reuse characters from LIST instead of TABs
+       -s, --serial
+              paste one file at a time instead of in parallel
+       -z, --zero-terminated
+              line delimiter is NUL, not newline
+              
+              
+How to join line in group of three?
+paste - - -
+
+paste -sd ';;\n'
+
+awk '{
+if (NR % 3 == 0)
+    printf $0"\n"
+else
+    printf $0";"
+}'
+
+
+How to read lines into array and print them with space-separated?
+#!bin/ksh
+i=0
+while read line
+do
+array[$i]=$line
+((i+=1))
+done
+
+echo ${array[@]}
+
+
+How to read lines into array and print lines from 3rd to 7th?
+while read line
+do 
+ my_array+=( $line ) 
+done
+
+for i in {3..7}
+do
+    printf -- '%s ' "${my_array[$i]}"
+done
+
+https://www.thegeekstuff.com/2010/06/bash-array-tutorial/
+
+Delete a line if a or A is present
+awk '!/a|A/'
+echo  ${Array[@]/*[aA]*/}
+------------
+while read d
+do
+res="$res $(echo $d|sed 's/.*a.*//g'|sed 's/.*A.*//g')"
+done
+echo $res
+
+
+How to grep for words?
+grep -iw
+
+How to grep with result having line numbers?
+grep -n
+
+How to add line numbers in output?
+grep -n ""
+
+How to print count of matched lines?
+grep -c
+
+Line starts with root: grep ^root
+Line ends with ":" == grep :$
+http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_04_02.html
+https://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples/
+http://tldp.org/LDP/abs/html/textproc.html
+
+
+
+Grep only those which have consecutive number?
+grep '\([0-9]\) *\1'
+

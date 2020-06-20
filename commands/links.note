@@ -1,0 +1,4 @@
+ln -s softlink/softfile lnsoft
+
+#Removes lnhard file if present
+ln -f hardlink/hardfile lnhard

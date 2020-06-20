@@ -1,0 +1,14 @@
+#!/bin/bash
+
+PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$"
+
+alias ll='ls -lart'
+
+alias dprm="docker ps| awk '{print $1}'|sed '1d'|xargs docker rm -f"
+
+#printf "\e[?2004l"
+#This helps when copy paste adds 0~ and 1~ like below
+#0~mvn clean install1~
+#printf "\e[?2004l"
+
+

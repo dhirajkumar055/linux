@@ -1,0 +1,24 @@
+https://www.youtube.com/watch?v=AyeLjD9Wa9I
+
+LVM : Logical Volume Manager
+
+Physical devices: are the devices that is used to persist data stored in a logical volume.
+Physical Volumes : From physical devices we create physical volumes
+
+LVM automatically segments volumes into physical extents
+
+Physical Group : From physical volumes we can create physical groups, these are storage pools made up of one or more  physical volumes
+
+PV can be allocated to single physical volume
+VG can consists of unused space and any number of logical volumes
+
+
+Error
+root@197nodnb25143:/home/dheerajkumar# lvdisplay
+  /run/lvm/lvmetad.socket: connect failed: No such file or directory
+  WARNING: Failed to connect to lvmetad. Falling back to internal scanning.
+Solution
+systemctl enable lvm2-lvmetad.service
+systemctl enable lvm2-lvmetad.socket
+systemctl start lvm2-lvmetad.service
+systemctl start lvm2-lvmetad.socket

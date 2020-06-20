@@ -1,0 +1,37 @@
+top command is used to show the Linux processes. It provides a dynamic real-time view of the running system. Usually, this command shows the summary information of the system and the list of processes or threads which are currently managed by the Linux Kernel.
+
+PID: Shows task’s unique process id.
+PR: Stands for priority of the task.
+SHR: Represents the amount of shared memory used by a task.
+VIRT: Total virtual memory used by the task.
+USER: User name of owner of task.
+%CPU: Represents the CPU usage.
+TIME+: CPU Time, the same as ‘TIME’, but reflecting more granularity through hundredths of a second.
+SHR: Represents the Shared Memory size (kb) used by a task.
+NI: Represents a Nice Value of task. A Negative nice value implies higher priority, and positive Nice value means lower priority.
+%MEM: Shows the Memory usage of task.
+
+Display Specific User Process
+top -u <user>
+
+Press z to see in red color
+
+Press c to see the absolute path of processes
+
+Press k to kill the process id in the terminal
+
+Presss shift+P to sort acc. to CPU utilization
+
+top -h: for help
+
+Batch mode: Keeps on printing the outputtop
+top -b
+
+Secure mode:
+top -sto
+
+Starts from last state and in absolute path mode
+top -c 
+
+Refresh after numberOfSeconds
+top -d <numberOfSeconds>

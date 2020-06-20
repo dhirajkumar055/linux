@@ -1,0 +1,37 @@
+How to remove comments?
+sed '/^[[:blank:]]*#/d;s/#.*//' fileName
+
+Remove comments and replace in file?
+sed -i '/^[[:blank:]]*#/d' sampleFile
+
+How to remove empty lines?
+sed '/^$/d'
+sed '/^[[:space:]]*$/d'
+
+https://www.grymoire.com/Unix/Sed.html#uh-10a
+
+Substitute the first occurrence of 'editor' with 'tool': 
+sed -e s/editor/tool/
+
+Substitute all the occurrences of 'editor' with 'tool':
+sed -e s/editor/tool/g
+
+Substitute the second occurrence of 'editor' with 'tool':
+sed -e s/editor/tool/2
+
+Highlight all the occurrences of 'editor' by wrapping them up in brace brackets: 
+sed -e s/editor/{\&}/g
+
+Change a word the with this
+sed -e 's/\bthe\b/this/'
+
+sed -e 's/\<the\>/this/'
+\< and > in regex world (sed syntax) represents words boundaries. You can use \b too, like:
+https://www.regular-expressions.info/wordboundaries.html
+
+Change ignore case word thy to your on all positions
+sed -e 's/\<thy\>/your/Ig'
+
+Credit card masking
+sed 's/[0-9]\+ /**** /g'
+

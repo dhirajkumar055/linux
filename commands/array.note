@@ -1,0 +1,27 @@
+os=('windows' 'ubuntu' 'kali')
+echo ${os[@]}
+echo ${!os[@]}  #indexes
+echo ${os[1]}
+echo ${#os[@]}  #length of array
+echo ${#os[4]}  #length of 5th element
+
+echo ${os[@]:3:2} #print next 2 elements after index 3 i.e. 3rd 4th
+
+os[4]='mac'
+unset os[2]     #remove element at index 2 BUT when this index is gets accessed it will show null so use below instead
+pos=2
+os=(${os[@]:0:$pos} ${os[@]:$(($pos + 1))})
+
+string="lasdfls"
+echo ${string[@]}
+echo ${os[@]}
+
+echo ${os[@]/ubuntu/sco unix}       #Search ubuntu and replace it with sco unix
+
+#https://www.thegeekstuff.com/2010/06/bash-array-tutorial/
+#Remove using pattern
+declare -a Unix=('Debian' 'Red hat' 'Ubuntu' 'Suse' 'Fedora');
+declare -a patter=( ${Unix[@]/Red*/} )
+echo ${patter[@]}
+
+readarray a

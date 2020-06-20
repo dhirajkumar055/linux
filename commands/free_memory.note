@@ -1,0 +1,34 @@
+1. total displays the total installed memory (MemTotal and SwapTotal i.e present in /proc/meminfo).
+2. used displays the used memory.
+3. free displays the unused memory.
+4. shared displays the memory used by tmpfs(Shmen i.epresent in /proc/meminfo and displays zero in case not available).
+5. buffers displays the memory used by kernel buffers.
+6. cached displays the memory used by the page cache and slabs(Cached and Slab available in /proc/meminfo).
+7. buffers/cache displays the sum of buffers and cache.
+
+tmpfs is a temporary file storage paradigm implemented in many Unix-like operating systems. It is intended to appear as a mounted file system, but data is stored in volatile memory instead of a persistent storage device. A similar construction is a RAM disk, which appears as a virtual disk drive and hosts a disk file system.
+
+cat /proc/meminfo|grep -i buff;cat /proc/meminfo|grep -i cache;cat /proc/meminfo|grep -i slab;free
+Buffers:          435820 kB
+Cached:          3488748 kB
+SwapCached:         6364 kB
+Slab:             500252 kB
+              total        used        free      shared  buff/cache   available
+Mem:        8060112     3299548      335744      767960     4424820     3538640
+Swap:       8280060       37984     8242076
+
+Adding Buffers, Cached and Slab is equivalent to buff/cache
+
+Use free -w to separate buffer and cache size.
+
+Use free -t to for total size 
+
+Use -s and -c for numberOfSeconds and count respectively
+free -c 5 -s 1
+Note: -c should be used before -s
+      -s option only works if -c option is used
+
+
+Free cache memory
+sync; echo 3 > /proc/sys/vm/drop_caches
+      

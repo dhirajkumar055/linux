@@ -1,0 +1,13 @@
+Below command will update the files in syncdir if same files are present in currentdir
+Any extra files present in syncdir won't be deleted
+rsync -r currentdir/ syncdir/
+
+Below command will delete any extra files present in syncdir directory.
+rsync -r --delete currentdir/ syncdir/
+
+
+How to release memory?
+sync; echo 1 > /proc/sys/vm/drop_caches
+sync; echo 2 > /proc/sys/vm/drop_caches
+sync; echo 3 > /proc/sys/vm/drop_caches
+

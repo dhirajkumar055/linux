@@ -1,0 +1,16 @@
+https://docs.microsoft.com/en-us/biztalk/core/port-bindings
+
+https://runnable.com/docker/binding-docker-ports
+
+A port binding is the configuration information that determines where and how a message will be sent or received. Depending on its type, a port binding might refer to physical locations, pipelines, or other orchestrations.
+
+There are three types of port binding for ports that receive messages:
+    Specify now
+    Specify later
+    Direct
+
+There are four types of port binding for ports that send messages:
+    Specify now
+    Specify later
+    Direct
+    Dynamic

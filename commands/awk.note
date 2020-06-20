@@ -1,0 +1,22 @@
+NR==1 means line number 1
+NR iterates like a line number
+
+https://www.youtube.com/watch?v=8q8DHmA9puw
+https://www.youtube.com/watch?v=fCw-xf31M_s
+https://www.youtube.com/watch?v=X-dm71lYHQ0
+
+
+ORS is for Output Record Separator
+awk 'ORS=NR%2?";":"\n"'
+awk ' {ORS="";if (NR%2==0){print $0"\n"} else {print $0";"}}'
+
+
+paste -d';' - -
+
+NF : Number of variables
+
+FS : Field Separator
+FS=,
+
+
+/usr/share/zoneinfo/Etc/UTC

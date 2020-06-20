@@ -1,0 +1,87 @@
+netstat Output format:
+proto  recv-q  send-q  local address  foreign address  state
+
+Proto -       The protocol (tcp, udp, raw) used by the socket.
+Recv-Q -  The count of bytes not copied by the user program connected to this socket.
+Send-Q -       The count of bytes not acknowledged by the remote host.
+Local Address -       Address and port number of the local end of the socket.  Unless the --numeric (-n) option is specified, the socket address is  resolved  to its canonical host name (FQDN), and the port number is translated into the corresponding service name.
+Foreign Address -    Address and port number of the remote end of the socket.  Analogous to "Local Address." If -n argument is not used it will resolve the DNS and give the name (example -  sin01-xxxxxx.insn:https), if used then it will give the foreign address.
+State -    The  state  of the socket. Since there are no states in raw mode and usually no states used in UDP, this column may be left blank.
+
+#https://unix.stackexchange.com/questions/428744/how-to-figure-out-the-meaning-behind-recv-q-and-send-q-from-netstat
+tcp 8216172  0 127.0.0.1:9503 127.0.0.1:47654 ESTABLISHED 34390/python
+means that process 34390 has a connection open, between port 9503 on the local host, and port 47654 on the local host, and that 8216172 bytes of data have been received by the kernel on port 9503 but haven’t yet been copied by the process.
+
+tcp   0 4189632 127.0.0.1:47686   127.0.0.1:9503  ESTABLISHED 34379/python
+means that process 34379 has a connection open, between port 47686 on the local host, and port 9503 on the local host, and that 4189632 bytes of data have been sent from port 47686 but not acknowledged yet (so they’re still in the TCP window).
+
+LISTEN menas : Network connections that are active.
+
+#Listing all the LISTENING Ports of TCP and UDP connections  
+netstat -a | more
+
+#Listing TCP Ports connections
+netstat -at
+
+#Listing UDP Ports connections
+netstat -au
+
+#Listing all LISTENING Connections
+netstat -l
+
+#Listing all TCP Listening Ports
+netstat -tl
+
+#Listing all UDP Listening Ports
+netstat -lu
+
+#Listing all UNIX Listening Ports
+netstat -lx
+
+#Showing Statistics by Protocol
+netstat -s
+Displays statistics by protocol. By default, statistics are shown for the TCP, UDP, ICMP, and IP protocols. The -s parameter can be used to specify a set of protocols.
+
+#Showing Statistics by TCP Protocol
+netstat -st
+
+#Showing Statistics by UDP Protocol
+netstat -su
+
+#Displaying Service name with PID
+netstat -tp
+
+#Displaying Promiscuous Mode
+netstat -ac 5 | grep tcp
+#netstat print the selected information or refresh screen every five second. Default screen refresh in every second.
+
+#Displaying Kernel IP routing
+netstat -r
+Output parameters/columns
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+
+#Showing Network Interface Transactions
+#Showing network interface packet transactions including both transferring and receiving packets with MTU size.
+netstat -i
+Output parameters/columns
+Kernel Interface table
+Iface   MTU Met   RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
+
+#Showing Kernel Interface Table, similar to ifconfig
+netstat -ie
+
+#Displaying IPv4 and IPv6 Information
+netstat -g
+
+#Print Netstat Information Continuously
+netstat -c
+
+#Finding non supportive Address
+netstat --verbose
+
+#Finding Listening Programs
+netstat -ap | grep http
+
+#Displaying RAW Network Statistics
+netstat --statistics --raw

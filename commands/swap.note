@@ -1,0 +1,54 @@
+What is Linux Swap?
+When RAM starts to become full, kernel takes some memory from RAM and writes it into swap space on hard drive. This is called swapping process. 
+
+Do you need swap space?
+If RAM is full and kernel has no space to wrtie; system will crash.
+Else kernel will write to swap space and system will continue to work but bit slower 
+
+Adding swap space wont increase the speed of computer
+
+What is swap partition?
+Swap partition is the part of hard  drive which is reserved for swap space.
+ 
+RAM:     Suitable Swap Size
+1GB        2GB
+2-4GB     Same as RAM
+8GM       4GB
+>8GB      2-4GB
+
+Check swap size
+swapon
+
+Swapfile has advantage over swap partition, you can change size of swapfile 
+Create swapfile
+#fallocate - preallocate or deallocate space to a file
+sudo fallocate -l 1G /swapfile
+Change permissions
+sudo chmod 600 /swapfile
+Format the file
+sudo mkswap /swapfile
+Enable Swap
+sudo swapon /swapfile
+
+To add permanently add below to fstab
+/swapfile   swap   swap   defaults   0  0
+
+How to remove swap file
+Deactivate swapfile first 
+sudo swapoff -v /swapfile
+
+Remove the swapfile
+sudo rm /swapfile
+
+Swapiness defines how often swap will be used.
+Check swapiness 
+cat /proc/sys/vm/swappiness
+
+Change swapiness
+sudo nano /etc/sysctl.conf
+vm.swappiness=10
+To exit from Nano text editor, save and close it with Ctrl+O and Ctrl+X keys shortcuts.
+
+Check 
+lsblk
+#lsblk - list block devices
