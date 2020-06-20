@@ -14,7 +14,7 @@ VG can consists of unused space and any number of logical volumes
 
 
 Error
-root@197nodnb25143:/home/dheerajkumar# lvdisplay
+Command: lvdisplay
   /run/lvm/lvmetad.socket: connect failed: No such file or directory
   WARNING: Failed to connect to lvmetad. Falling back to internal scanning.
 Solution
