@@ -1,3 +1,2 @@
 Add the new user to the sudo group
 usermod -aG sudo username
-

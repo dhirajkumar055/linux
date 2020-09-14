@@ -1,0 +1,8 @@
+col=`awk 'END{print NF}' file.txt`
+for i in `seq 1 ${col}`; do r="";r=`cut -d' ' -f${i} file.txt` ; echo $r; done
+
+#Valid Phone Numbers
+cat file.txt |grep -E "^\([0-9]{3})[ ]{1}[0-9]{3}-[0-9]{4}$|^[0-9]{3}-[0-9]{3}-[0-9]{4}$"
+
+#Word Frequency
+cat words.txt |tr ' ' '\n'|sort|awk 'NF'|uniq -c|sort -rn|awk '{print $2,$1}'

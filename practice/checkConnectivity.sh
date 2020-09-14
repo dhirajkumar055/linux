@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/baks
 #check=`ping -c 1 -q google.com >&/dev/null; echo $?`
 #echo ${check}
 

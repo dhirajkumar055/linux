@@ -1,0 +1,3 @@
+file hello
+ldd hello
+libc.so.6 contains printf and other functions

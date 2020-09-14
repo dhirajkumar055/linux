@@ -8,7 +8,7 @@ https://www.youtube.com/watch?v=X-dm71lYHQ0
 
 ORS is for Output Record Separator
 awk 'ORS=NR%2?";":"\n"'
-awk ' {ORS="";if (NR%2==0){print $0"\n"} else {print $0";"}}'
+awk '{ORS="";if (NR%2==0){print $0"\n"} else {print $0";"}}'
 
 
 paste -d';' - -
