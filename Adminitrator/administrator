@@ -1,4 +1,5 @@
 How to add user and groups?
+useradd <username>
 
 How to check groups?
 Check /etc/group
@@ -14,7 +15,7 @@ Install ping
 apt-get update
 apt-get install iputils-ping
 
-Insatll mclient
+Insatll mysql client
 apt install default-mysql-client/stable -y
 Mysql: To access outside the current user
 ALTER USER 'username' IDENTIFIED WITH mysql_native_password BY 'password';
@@ -24,18 +25,6 @@ sudo apt-get install libghc-diff-doc
 sudo apt update 
 sudo apt upgrade -y
 sudo apt-get install -y kompare
-
-
-I would try to first clean with
-sudo apt-get clean
-then try
-sudo dpkg --configure -a
-or/and
-sudo apt upgrade --fix-missing
-
-sudo update-rc.d dbus defaults
-sudo update-rc.d bluetooth defaults
-sudo apt-get install -f
 
 
 Add into /etc/sudoers.d/username
@@ -50,10 +39,59 @@ echo "$BASEDIR"
 Sequence
 seq 7000 7005
 
+#https://www.digitalocean.com/community/tutorials/how-to-list-and-delete-iptables-firewall-rules
 How to flush iptables?
+Flush a single chain
+sudo iptables -F INPUT
+sudo iptables -F
+
+Disable or discard all the rules
+    sudo iptables -P INPUT ACCEPT
+    sudo iptables -P FORWARD ACCEPT
+    sudo iptables -P OUTPUT ACCEPT
+Then flush the nat and mangle tables, flush all chains (-F), and delete all non-default chains (-X):
+    sudo iptables -t nat -F
+    sudo iptables -t mangle -F
+    sudo iptables -F
+    sudo iptables -X
 
 Why to flush iptables?
+Your firewall will allow all network traffic.
 
+How to list iptables?
+sudo iptables -S
+
+How to list specific iptable chain?
+sudo iptables -S TCP
+sudo iptables -S FORWARD
+
+How to list iptables rules in table format?
+sudo iptables -L
+sudo iptables -L -v
+sudo iptables -L INPUT
+sudo iptables -L INPUT -v
+Use -v for verbose
+The first line of output indicates the chain name, followed by its default policy 
+
+How to reset pkt count and aggregate size?
+sudo iptables -Z
+sudo iptables -Z INPUT
+sudo iptables -Z INPUT 1 #Reset rule no. 1
+
+How to delete iptables by line number?
+sudo iptables -L --line-numbers
+sudo iptables -D INPUT 3
+Deleted sudo iptables -D DOCKER 1
+1    ACCEPT     tcp  --  anywhere             172.17.0.2           tcp dpt:6379
+
+Adding above
+sudo iptables -A DOCKER -p tcp --dport 9000 -j ACCEPT --destination 172.17.0.2
+
+What is the difference  between route and iptables?
+route is a command that displays, adds and deletes entries from the kernel's TCP/IP routing table (aka "Forwarding Information Base"). iptables is a command that displays, adds, and deletes entries from Netfilter, the Linux kernel's packet filtering and manipulating subsystem. It handles NAT.
+
+How to install telnet on alpine?
+apk add busybox-extras
 
 How to install route command on ubuntu?
 apt-get install net-tools
@@ -97,3 +135,282 @@ useradd: group spinnaker exists - if you want to add this user to that group, us
 
 How to create a soft link in Linux?
 ln -s /path/to/source <linkName>
+
+How to check running services?
+sudo apt-get install sysv-rc-conf
+sysv-rc-conf --list
+
+How to check conf of available service
+/lib/systemd/system
+/etc/init
+/etc/init.d
+
+How to check ip address of your machine?
+curl ifconfig.io
+
+
+What is and how do I enable IP forwarding on Linux?
+IP forwarding is the ability for an operating system to accept incoming network packets on one interface, recognize that it is not meant for the system itself, but that it should be passed on to another network, and then forwards it accordingly. This is what you need when you have for example a system setup that is sitting between two different networks and needs to pass traffic between them. On pretty much any Linux system, barring a few exceptions, this can be accomplished by editing the /etc/sysctl.conf file and adding or uncommenting a specific line. To enable IP forwarding on Ubuntu/Debian for example you can do this:
+Open the file /etc/sysctl.conf in the nano text editor:
+nano /etc/sysctl.conf
+Uncomment or add this line:
+net.ipv4.ip_forward=1
+Press ctrl+x, then press y, and then press enter, to save and exit the file. Next run this command:
+sysctl -p
+
+
+I would try to first clean with
+sudo apt-get clean
+then try
+sudo dpkg --configure -a
+or/and
+sudo apt upgrade --fix-missing
+
+sudo update-rc.d dbus defaults
+sudo update-rc.d bluetooth defaults
+sudo apt-get install -f
+
+
+https://www.thegeekstuff.com/2011/02/linux-boot-process/
+
+
+
+
+https://ostechnix.com/solve-error-rpmdb-open-failed-error-centos/
+Error:
+rpmdb: Thread/process 16437/139860220303104 failed: Thread died in Berkeley DB library
+error: db3 error(-30974) from dbenv->failchk: DB_RUNRECOVERY: Fatal error, run database recovery
+error: cannot open Packages index using db3 -  (-30974)
+error: cannot open Packages database in /var/lib/rpm
+rpmdb: Thread/process 16437/139860220303104 failed: Thread died in Berkeley DB library
+error: db3 error(-30974) from dbenv->failchk: DB_RUNR
+Solutions: 
+mv /var/lib/rpm/__db* /tmp
+yum clean all
+yum update
+rm -i /tmp/__db*
+
+
+
+
+echo 1 > /proc/sys/vm/overcommit_memory
+
+
+Arithematic Operations
+Must have spaces in between
+1. expr
+expr 6 + 5
+expr 6 - 5
+expr $a / $b
+expr 2 \* 5     must escape multiply
+
+2. double parenthesis
+No need of $ before variable and no spacing issues and no escape for * and only decimal outputs
+echo $(( a+b ))
+echo $(( a-b ))
+echo $(( a/b ))
+echo $(( a*b ))
+echo $((A++))
+echo $((++A))
+echo $((A--))
+echo $((--A))
+
+3. bc : basic calculator
+echo $a/$b |bc -l
+-l for floating point result
+
+
+Condition
+if [ $rocket = "failed" ]
+then
+echo "failed"
+elif [ $rocket = "success" ]
+then
+echo "else if"
+fi
+
+
+Coditions
+[ string1 = string2 ]   spaces around brackets and = and for strings only
+[ string1 != string2 ]
+
+For numeric values
+
+[ 5 -eq 5 ]
+[ 5 -ne 5 ]
+[ 6 -gt 5 ]
+[ 5 -lt 7 ]
+
+
+Double square brackets : only supported in bash
+[[ string1 = string2 ]]
+
+if specifying patterns do not put them in double quotes
+[[ "abcd" = *bc* ]] check if bc is in strig1
+[[ "abd" = ab[cd] ]] third character can be c or d
+[[ "abc" > "bcd" ]] : False
+[[ "abc" < "bcd" ]] : True
+
+Operators && ||
+
+for single square brackets
+[ cond1 ] && [ cond2 ]
+[ cond1 ] || [ cond2 ]
+for doubel square brackets
+[[ cond1 && cond2 ]]
+[[ cond1 || cond2 ]]
+
+[[ A -gt 4 && A -lt 10 ]] A is between 4 and 10
+[[ A -gt 10 || A -lt 4 ]] A is greater then 10 or less 4
+
+File level operators
+
+[ -e FILE ] : if file exists
+[ -d FILE ] : if file exists and is a directory
+[ -s FILE ] : if file exists and has size greater than 0
+[ -x FILE ] : if file is executable
+[ -w FILE ] : if file is writable
+
+
+for i in $(cat filename)
+do
+echo $i
+done
+
+for i in {0..100}
+do
+echo $i
+done
+
+for (( i = 0 ; i <= 100; i+=))
+do
+echo $i
+done
+
+for i in $(ls)
+do
+echo Line count of $file is $($file | wc -l)
+done
+
+for package in $(cat filename)
+do
+sudo apt install $package
+done
+
+for file in $(ls images)
+do
+ if [[ $file = *.jpeg ]]
+  then
+   new_name=$(echo $file|sed 's/jpeg/jpg/g')
+   mv images/$file images/$new_name
+ fi
+done
+
+
+While is used for continuos condition checking
+Also for menu or for choices
+
+break and  continue is used here as well
+
+while [ $rocket_status = "launching" ]
+do
+sleep 32
+rocket_status=getstatus
+done
+
+
+
+to_number=$1
+num=0
+while [ $num -lt $to_number ]
+do
+  echo $((num++))
+done
+
+while true
+do
+case $choice in 
+ 1) ls -latr ;;
+ 2) pwd ;;
+ 3) break ;;
+ *) continue ;;
+esac
+done
+
+while true; do case $choice in   1) ls -latr;read choice ;;  2) pwd; read choice ;;  3) break ;;  *) read choice ;; esac; done
+
+os=Fedora
+case $os in
+  "Fedora") echo "Uses RPM package manager" ;;
+  "RHEL") echo "Uses RPM package manager" ;;
+esac
+
+
+{0..10} : works only in bash
+Shebang instructs which shell to run
+
+
+Exit Codes
+0 - Success
+>0 - Failure
+
+echo $? to check status
+
+exit 1: to return 1 as exit status
+
+
+function functionname(){
+echo $1
+return "abc"   Cannot return non-numeric values here
+}
+
+
+functioname firstargument
+echo $?
+
+Function definition should be specified before calling
+
+function add(){
+echo $(($1+$2))
+}
+sum=$(add 3 5)
+
+
+Exit code 126 : permission denied
+Exit code 1 : File exists
+
+
+shellcheck utility is like sonarqube of shell-scripts
+apt-get install shellcheck
+
+
+Update timezone
+timedatectl list-timezones
+sudo timedatectl set-timezone  Asia/Kolkata
+
+
+How to get cmdline printed from /proc/0-9*/cmdline file?
+find /proc/ -name "cmdline" -regex "/proc/[0-9]*/cmdline"
+
+Find a file at minimum depth of 4?
+find . -mindepth 4 -name level1
+
+How to check stopped jobs?
+jobs -s
+
+How to start stopped jobs?
+fg <ID>
+
+How to check open ports?
+sudo lsof -i -P -n | grep LISTEN
+netstat -tulpn
+
+How to change hostname?
+hostnamectl set-host <newHostName>
+
+yum list docker*
+yum install docker-ce docker-ce-cli containerd.o
+yum repolist
+How to add new repo?
+yum-config-manager --add-repo <link>
+/etc/yum/pluginconf.d/subscription-manager.conf

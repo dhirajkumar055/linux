@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/baks
 #set -euo pipefail
 #a=DSF
 #echo $a
