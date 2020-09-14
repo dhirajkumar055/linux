@@ -1,7 +1,6 @@
 ifconfig is a system administration utility in Unix-like operating systems for network interface configuration.
 The utility is a command-line interface tool and is also used in the system startup scripts of many operating systems. It has features for configuring, controlling, and querying TCP/IP network interface parameters. Ifconfig originally appeared in 4.2BSD as part of the BSD TCP/IP suite.
 
-
 ip command is the replacement of ifconfig
 
 Show network interfaces of your machine

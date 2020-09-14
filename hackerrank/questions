@@ -68,11 +68,24 @@ sum=$(($sum+$x))
 done
 printf "%.3f" $(echo $sum/$a|bc -l)
 
+Alternate to calculate average
+read n
+arr=($(cat)) Reads array as [1,2,3,4]
+arr=${arr[*]} Converts array to [1 2 3 4]
+printf "%.3f" $(echo $((${arr// /+}))/$n | bc -l)
+
 
 How to read till the input is given?
 while read a
 do
 echo $a
+done
+
+if the end of your file has not a break line, you have to use
+DONE=false
+until $DONE; do
+    read s || DONE=true
+		-- your code
 done
 
 Output 2nd to 7th character
@@ -81,6 +94,9 @@ cut -c2-7
 Multiple character delimiter in cut?
 cut -d $'\t' -f1-3
 1st to 3rd columns
+
+13th position from end
+cut -c13-
 
 Print first 20 lines of file?
 cat filename|head -20
@@ -101,9 +117,12 @@ tail -c20
 Convert brackets
 tr "()" "[]"
 
+Codes 20hex to 7Ehex, known as the printable characters, represent letters, digits, punctuation marks, and a few miscellaneous symbols. There are 95 printable characters in total.[m]
+
 Delete lowercase letters
 tr -d 'a-z'
 tr -d [:lower:]
+tr -d abcdefghijklmnopqrstuvwxyz
 
 Replace all sequences of multiple spaces with just one space.
 
@@ -121,6 +140,7 @@ How to sort numberic in reverse order?
 sort -rn
 
 How to sort according to 2nd column with delimiter as tab?
+t is the field separatot in sort
 sort -t$'\t' -k2 -rn
 
 How to remove consecutive duplicate lines?
@@ -220,3 +240,12 @@ http://tldp.org/LDP/abs/html/textproc.html
 Grep only those which have consecutive number?
 grep '\([0-9]\) *\1'
 
+
+How to use escape in sed?
+	sed -i "s~^${key}.*~${key}~" $filename
+#   value=`echo $i|sed "s~\\~\\\\\\\\~"`
+	value=`echo $i|sed "s~|~\\\\\\\|"`
+	value=`echo $i|sed "s~&~\\\\\\\&~"`
+
+	echo $value
+	sed -i "s~^${key}.*~${value}~" $filename

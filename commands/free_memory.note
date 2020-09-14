@@ -21,7 +21,7 @@ Adding Buffers, Cached and Slab is equivalent to buff/cache
 
 Use free -w to separate buffer and cache size.
 
-Use free -t to for total size 
+Use free -t for total size 
 
 Use -s and -c for numberOfSeconds and count respectively
 free -c 5 -s 1

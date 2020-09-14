@@ -4,3 +4,7 @@ do
 a=$(($a-1))
 echo $a
 done
+
+Sed special characters
+& | \
+, for csv
