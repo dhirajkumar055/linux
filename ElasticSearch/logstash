@@ -1,0 +1,18 @@
+Data Sources ====> Inputs ===> Filters =====> Outputs =====> Data Destinations
+
+bin/logstash -e 'input {stdin{}} output {stdout {}}'
+
+-e to give the configurations on the fly
+
+for file use -f
+
+https://github.com/elastic/logstash/blob/v1.4.2/patterns/grok-patterns
+
+http://127.0.0.1:9200/logstash-*/_count
+
+
+
+~                                                                                                                                                                  
+~                                                                                                                                                                  
+~                                                                                                                                                                  
+~                                                                 
