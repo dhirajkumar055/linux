@@ -5,10 +5,12 @@ https://www.youtube.com/watch?v=8q8DHmA9puw
 https://www.youtube.com/watch?v=fCw-xf31M_s
 https://www.youtube.com/watch?v=X-dm71lYHQ0
 
+#OFS Output field separator
 
-ORS is for Output Record Separator
+#ORS is for Output Record Separator
 awk 'ORS=NR%2?";":"\n"'
 awk '{ORS="";if (NR%2==0){print $0"\n"} else {print $0";"}}'
+awk 'BEGIN{ORS="------------"}/dheeraj/ {print $1}' /etc/passwd
 
 
 paste -d';' - -
@@ -20,3 +22,55 @@ FS=,
 
 
 /usr/share/zoneinfo/Etc/UTC
+
+#IRS Internal Record Separator
+#Applies on individual lines
+awk  'BEGIN{IRS=","}; {print $2}' csvwithspaces
+
+#RS Record Separator
+#Applies on whole input
+awk  'BEGIN{RS=","}; {print $2}' csvwithspaces
+
+#IFS: Internal Field Separator
+#Separates the input with specified delimiter
+#IFS variable is commonly used with read command, parameter expansions and command substitution.
+export IFS=:
+ifsexample=`cat /etc/passwd|grep dheeraj`
+set $ifsexample
+echo $1
+echo $2
+echo $3
+echo $4
+
+#Below is equivalent to -F':'
+export FS=:
+ifsexample=`cat /etc/passwd|grep dheeraj`
+set $ifsexample
+echo $1
+echo $2
+echo $3
+echo $4
+
+#Below are same
+awk -F',' '{print $2}' csvwithspaces       #Exclude , from output
+awk 'BEGIN{FS=","};{print $2}' csvwithspaces  #Include , in output
+
+#The following program searches the system password file and prints the entries for users whose full name is not indicated and username is kibana 
+awk -F: '$5=="" && $1=="kibana" {print $2}' /etc/passwd
+
+#Using IFS and $@ and $* in scripts
+#$@ expanded as "$1" "$2" "$3" ... "$n"
+#$* expanded as "$1y$2y$3y...$n", where y is the value of IFS variable i.e. "$*" is one long string and $IFS act as an separator or token delimiters.
+
+
+
+#OIFS is generally used to take backup of IFS variable OIFS=$IFS;
+
+
+#OFS Output field separator(by default its space) generally used when print $1,$2,$3
+#Here , is changed to $OFS
+#ORS: Output Record Separator
+#The output from an entire print statement is called an output record. Each print statement outputs one output record, and then outputs a string called the output record separator (or ORS).
+awk 'BEGIN{FS=",";OFS=":";ORS="\n\n"}{print $1,$2,$3}' csvwithspaces 
+awk -F: 'BEGIN{OFS="==";ORS="\n\n"};{print $1,$2}' /etc/passwd|head -10
+

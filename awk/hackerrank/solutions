@@ -1,0 +1,61 @@
+awk '{print "HELLO"}'
+
+#Odd Numbers 1 to 99
+awk 'BEGIN {for(i=1;i<=99;i++){if(i%2==1){print i}}}'
+
+#Take input
+awk 'BEGIN{getline input;print "Welcome",input}'
+
+awk 'BEGIN{for(i=1;i<=50;i++){print i}}'
+
+#Arithematic n floor
+awk 'BEGIN{getline a; getline b; print a+b"\n"a-b"\n"a*b"\n"int(int(a)/int(b))}'
+
+#else if
+awk 'BEGIN{getline a; getline b;if(a>b){print "X is greater than Y"}else if(b>a){print "X is less than Y"}else{print "X is equal to Y"}}'
+
+#tolower
+awk 'BEGIN{getline input; if(tolower(input)=="y"){print "YES"}else{print "NO"}}'
+
+#&& and operator logical
+awk 'BEGIN{getline one;getline two;getline three;if(one==two && two==three && three==one){print "EQUILATERAL"}else if(one!=two && two!=three && one!=three){print "SCALENE"} else{print "ISOSCELES"}}'
+
+#Upto 3 decimal points
+awk 'BEGIN{getline input; print input}'|bc -l|awk '{printf "%.3f",$0}'
+
+#Get average
+awk 'BEGIN{getline input;sum=0}{sum=sum+$0}END{printf "%.3f",sum/input}'
+
+#Null input delimiter
+awk -F'\0' '{print $3}'
+
+#print will output each output with new line
+#printf will outpu each output by OFS and ORS
+awk -F'\0' 'BEGIN{OFS=""}{for(i=2;i<=7;i++){printf "%s%s", $i, (i<7 ? OFS : ORS)}}'
+
+#First four characters
+awk -F'\0' 'BEGIN{OFS=""}{for(i=1;i<5;i++){printf "%s%s",$i,(i<4 ? OFS : ORS)}}'
+
+#print from 13th character onwards 
+awk '{print substr($0,13)}'
+
+#By default, cut expects each input line to contain the delimiter (space in the OP example). Lines that do not contain the delimited are printed as-is.
+#Regex in if condition in awk
+awk 'BEGIN{FS=" "}{if( $0 ~ /.*\ .*/ ){print $4}else{print $1}}'
+
+#Print from 2nd column onwards, Get index of 2nd column
+awk -F$'\t' '{print substr($0,index($0,$2))}'
+
+#tail -n 20
+awk '{array[NR]=$0}END{for (i=NR-19>0?NR-19:1;i<=NR;i++){print array[i]}}'
+
+#gsub("find", "replace") tr alternative
+awk 'gsub("(", "[") && gsub(")", "]")'
+
+#Remove all  character letters
+awk 'gsub("[a-z]","")'
+
+#Remove multiple spaces with one, * means previous character can be one or more time
+awk 'gsub("  *"," ")'
+
+
