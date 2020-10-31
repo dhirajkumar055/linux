@@ -1,0 +1,189 @@
+    POST /vehicles/cars/_bulk
+    { "index": {}}
+    { "price" : 10000, "color" : "white", "make" : "honda", "sold" : "2016-10-28", "condition": "okay"}
+    { "index": {}}
+    { "price" : 20000, "color" : "white", "make" : "honda", "sold" : "2016-11-05", "condition": "new" }
+    { "index": {}}
+    { "price" : 30000, "color" : "green", "make" : "ford", "sold" : "2016-05-18", "condition": "new" }
+    { "index": {}}
+    { "price" : 15000, "color" : "blue", "make" : "toyota", "sold" : "2016-07-02", "condition": "good" }
+    { "index": {}}
+    { "price" : 12000, "color" : "green", "make" : "toyota", "sold" : "2016-08-19" , "condition": "good"}
+    { "index": {}}
+    { "price" : 18000, "color" : "red", "make" : "dodge", "sold" : "2016-11-05", "condition": "good"  }
+    { "index": {}}
+    { "price" : 80000, "color" : "red", "make" : "bmw", "sold" : "2016-01-01", "condition": "new"  }
+    { "index": {}}
+    { "price" : 25000, "color" : "blue", "make" : "ford", "sold" : "2016-08-22", "condition": "new"  }
+    { "index": {}}
+    { "price" : 10000, "color" : "gray", "make" : "dodge", "sold" : "2016-02-12", "condition": "okay" }
+    { "index": {}}
+    { "price" : 19000, "color" : "red", "make" : "dodge", "sold" : "2016-02-12", "condition": "good" }
+    { "index": {}}
+    { "price" : 20000, "color" : "red", "make" : "chevrolet", "sold" : "2016-08-15", "condition": "good" }
+    { "index": {}}
+    { "price" : 13000, "color" : "gray", "make" : "chevrolet", "sold" : "2016-11-20", "condition": "okay" }
+    { "index": {}}
+    { "price" : 12500, "color" : "gray", "make" : "dodge", "sold" : "2016-03-09", "condition": "okay" }
+    { "index": {}}
+    { "price" : 35000, "color" : "red", "make" : "dodge", "sold" : "2016-04-10", "condition": "new" }
+    { "index": {}}
+    { "price" : 28000, "color" : "blue", "make" : "chevrolet", "sold" : "2016-08-15", "condition": "new" }
+    { "index": {}}
+    { "price" : 30000, "color" : "gray", "make" : "bmw", "sold" : "2016-11-20", "condition": "good" }
+
+
+
+
+//from 0 to 5 records
+//Query runs full 16 then sort and then 0 to 5 are displayed
+
+GET /vehicles/cars/_search
+{
+  "from": 0,
+  "size": 5,
+  "query":{
+    "match_all": {}
+  },
+  "sort":[
+    {"price": {"order": "desc"}}
+    ]
+}
+
+Aggregations are used to get the insight of data.
+
+//Count to get the number of records output
+GET /vehicles/cars/_count
+{
+  "query":{
+    "match": {
+      "make": "dodge"
+    }
+  }
+}
+
+//Aggregate on the basis of make field
+GET /vehicles/cars/_search
+{
+  "size": 0,
+  "query":{
+    "match": {
+      "color": "red"
+    }
+  },
+ "aggs": {
+   "popular_cars":{
+     "terms":{
+       "field": "make.keyword"
+     },
+     "aggs":{
+      "avg_price":{
+         "avg":{
+           "field": "price"
+        }
+      },
+      "max_price":{
+        "max": {
+          "field": "price"
+        }
+      },
+      "min_price":{
+        "min": {
+          "field": "price"
+        }
+      }
+     }
+   }
+ }
+}
+
+//Stats gives min, max, avg and sum
+GET /vehicles/cars/_search
+{
+  "size": 0,
+  "query":{
+    "match": {
+      "color": "red"
+    }
+  },
+ "aggs": {
+   "popular_cars":{
+     "terms":{
+       "field": "make.keyword"
+     },
+     "aggs":{
+      "stats_on_price":{
+         "stats":{
+           "field": "price"
+        }
+      }
+     }
+   }
+ }
+}
+
+GET /vehicles/cars/_search
+{
+  "size": 0,
+ "aggs": {
+   "popular_cars":{
+     "terms":{
+       "field": "make.keyword"
+     },
+     "aggs":{
+      "sold_date_in_range":{
+         "range":{
+           "field": "sold"
+           , "ranges": [
+             {"from":"2016-01-01","to":"2016-05-18"},
+             {"from":"2016-05-18","to":"2017-01-01"}
+           ]
+        },
+          "aggs": {
+            "avg_price_in_range": {
+              "avg": {
+            "field": "price"
+            }
+          }
+        }
+      }
+     }
+   }
+ }
+}
+
+
+GET /vehicles/cars/_search
+{
+  "size": 0,
+ "aggs": {
+   "conditions_of_cars":{
+     "terms":{
+       "field": "condition.keyword"
+     },
+     "aggs": {
+       "AverageOfConditionCar": {
+         "avg": {
+           "field": "price"
+         }
+       },
+       "make":{
+         "terms": {
+           "field": "make.keyword"
+         },
+         "aggs": {
+           "stats": {
+             "stats": {
+               "field": "price"
+             }
+           }
+         }
+       }
+     }
+   }
+ }
+}
+
+
+
+

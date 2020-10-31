@@ -1,0 +1,231 @@
+
+Kibana only runs if elastic search is running.
+
+Based on lucene project and uses inverted index.
+
+Inserting = Indexing
+
+PUT {index}/{type}/{id}
+{
+"car1": "val1"
+"car2": "val2"
+}
+
+POST vehicle/car/1
+{
+"make": "Hyundai",
+"Color": "AquaTeal",
+"milage": "18kmpl",
+"price": "7lakh"
+}
+
+GET vehicle/car/1
+HEAD /vehicles #Checks status code
+
+
+
+# index a doc
+PUT index/_doc/1
+{
+  "body": "here"
+}
+
+# and get it ...
+GET index/_doc/1
+
+
+POST is for update
+POST /vehicles/car/1/_update
+{
+  "doc": {
+    "Color": "BlueGreen"
+  }
+}
+
+DELETE /vehicles/car/1
+
+
+PUT /business/building/110
+{
+"address": "472 Line Par",
+"floors": 10,
+"offices": 21,
+"loc": {
+ "lat": 40.23,
+ "lon": 55.66
+}
+}
+
+
+PUT contracts/_doc/888
+{
+  "name": "Property owner",
+  "date_signed": "Nov 26, 2020",
+  "employee_involved": [330, 331, 398]
+}
+
+
+PUT employee/_doc/331
+{
+  "name": "Dheeraj",
+  "Title": "Devops",
+  "Salary": 100000.00,
+  "hiredate": "Nov 25, 2019"
+}
+
+#Search all inside type
+GET business/building/_search
+
+#Search query : Results which contains 472 in address
+GET business/_search
+{
+ "query": {
+   "term": {
+     "address": "472"
+  }
+ }
+}
+
+GET business/_search
+{
+ "query": {
+  "match_all": {}
+ }
+}
+
+
+curl -XGET "http://localhost:9200/business/_search?pretty" -H 'Content-Type: application/json' -d'{ "query": {  "match_all": {} }}'
+
+
+Primary and Replicas are on differents nodes for failures
+
+GET request can be served from Replicas
+
+But PUT and DELETE are forwarded to primary first and then to replicas.
+
+Shards contains actual data
+Shards are divided into segments(Inverted Index)
+Shards uses lucene
+Shards are made up of immutable inverted index.
+
+Analysis: Tokenization and Filters
+Below are filters
+Remove Stop Words : frequently occuring or non-necessary words can be removed like the, is, he, she
+Lowercasing : case-insensitive
+Stemming : swimmers and swimming will be cut to swim
+Synonyms : thin and skinny have same meaning
+
+Tokenization is converting space separated words into tokens
+
+Elastic search index is made up of multiple shards.
+
+Raw data ===> ElasticSearch ===Analysis===> InvertedIndex =====> Buffer =====OnceBufferIsFull=====>  Segment ===SegmentIsFull===> ImmutableInvertedIndex
+
+Indexing
+Text =====> Analyzer(Tokenization+Filter) ====> Index
+
+Quering
+Text =====> Analyzer(Tokenization+Filter) ====> Index
+
+
+Anallyzers are applied to specific fields.
+Same analyzers should be used for quering which is used for indexing.
+
+Actual data resides on shards.
+
+Default no. of shards are 5.
+
+Create index settings  manually
+PUT customers
+{
+  "settings": {
+    "number_of_replicas": 1,
+    "number_of_shards": 2
+  }, 
+  "mappings": {}
+}
+
+DELETE /customers
+
+Custom index creation
+PUT /customers
+{
+  "mappings": {
+    "properties": {
+      "gender": {
+        "type": "text",
+        "analyzer": "standard"
+      },
+      "age":{
+        "type": "integer"
+      },
+      "total_spent": {
+        "type": "float"
+      },
+      "is_new":{
+        "type": "boolean"
+      },
+      "name": {
+        "type": "text",
+        "analyzer": "standard"
+      }
+    }
+  },
+  "settings": {
+    "number_of_replicas": 1,
+    "number_of_shards": 2
+  }
+}
+
+address will created automatically
+PUT /customers/_doc/1
+{
+  "name": "Dheeraj",
+  "total_spent": 25000,
+  "is_new": true,
+  "age": 28,
+  "address": "Bahadurgarh",
+  "gender": "male"
+}
+
+prevent data insertion
+PUT /customers/_mapping/
+{
+  "dynamic": false
+}
+
+PUT /customers/_mapping/
+{
+  "dynamic": "strict"
+}
+
+#Testing analyzer
+POST _analyze
+{
+  "analyzer": "whitespace",
+  "text": "This is my world"
+}
+
+POST _analyze
+{
+  "analyzer": "standard",
+  "text": "CAPITAL12 WILL be small my! world...."
+}
+
+POST _analyze
+{
+  "analyzer": "simple",
+  "text": "Numbers removed432 WILL be567 small789 my! world...."
+}
+
+POST _analyze
+{
+  "analyzer": "english",
+  "text": "removed432 the WILL be567 small789 my! world...."
+}
+
+
+Search DSL components
+Query and filter
+
+

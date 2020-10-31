@@ -1,0 +1,14 @@
+filebeat : transfers file
+metric beat: collect system data in metrics
+packet beat: for networking
+heart beat: for application if up and running
+vimlog beat:
+audit beat:
+
+Community beat like
+mongo beat
+apache beat
+amazon beat
+
+
+handles back pressure sensitive protocol
