@@ -414,3 +414,7 @@ yum repolist
 How to add new repo?
 yum-config-manager --add-repo <link>
 /etc/yum/pluginconf.d/subscription-manager.conf
+
+How to update crontab in docker?
+Running every 10th minute.
+RUN echo "*/10 * * * *  /path/to/script/for/running " | crontab -
