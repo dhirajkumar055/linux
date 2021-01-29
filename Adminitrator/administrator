@@ -1,5 +1,5 @@
 How to start a process if stopped. Check the same every minute and add in crontab.
-* * * * * bash -c "if [[ `ps -ef|grep <StartProcessCommand>|grep -v grep|wc -l` != "0" ]] ; then <StartProcessCommand> ; fi" 2>/dev/null >>/tmp/tmpfile
+* * * * * bash -c "if [[ `ps -ef|grep <StartProcessCommand>|grep -v grep|wc -l` == "0" ]] ; then <StartProcessCommand> ; fi" 2>/dev/null >>/tmp/tmpfile
 
 How to add user and groups?
 useradd <username>
