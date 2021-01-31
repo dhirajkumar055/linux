@@ -1,4 +1,68 @@
+How to use switch case in shell?
+case expression in
+ pattern )
+  statements ;;
+ pattern )
+  statements ;;
+ * )
+ statements ;;
+esac
 
+LANG=C
+read value
+case $value in
+ [a-z] )
+  echo "user entered between a to z" ;;
+ [A-Z] )
+  echo "user entered between A to Z" ;;
+ [0-9] )
+  echo "user entered between 0 to 9" ;;
+ ? )
+  echo "user entered a special character" ;;
+ * )
+  echo "unknown input" ;;
+esac
+
+
+How to get square root and power functions?
+echo "scale=2;sqrt($variable)"|bc -l
+echo "scale=2;$variable^$variable"|bc -l
+
+How to get result upto 2 decimal?
+echo "scale=2;22.55/5"|bc
+
+How to use logical OR operator in conditions?
+if [condition1] || [condition2]
+or
+if [ condition1 -o condition2 ]
+or
+if [[ condition1 || condition2 ]]
+
+How to use logical AND operator in conditions?
+if [condition1] && [condition2]
+or
+if [ condition1 -a condition2 ]
+or
+if [[ condition1 && condition2 ]]
+
+How to keep the cursor on the same while taking input?
+echo -e "Enter the input : -c"
+read inputVariable
+if [ -e $inputVariable ]
+then
+ echo "$inputVarilable file is present"
+else
+ echo "$inputVariable file is not present"
+fi
+
+-f for regular files
+-d for directories
+-b for block special file : video or music or image files
+-c for character special file : Normal texts
+-s checks if file is not empty
+-r check if file has read permission
+-w check if file has write permission
+-x check if file has execute permission
 
 How to print the number of arguments?
 echo $#
