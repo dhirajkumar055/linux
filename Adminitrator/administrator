@@ -1,3 +1,45 @@
+
+
+How to print the number of arguments?
+echo $#
+
+How to take all the inputs in an array?
+args=("$@")
+echo "${args[@]}" #Takes from $1 to end excludes $0(name of script)
+for i in "${args[@]}"; do echo $i; done #Print all the array elements
+for i in "${args[@]}"; do echo -n "$i "; done #Space separated
+
+What is the default variable read uses for input?
+REPLY
+read
+echo $REPLY
+
+How to read space separated input as an array?
+read -a arrayname
+echo "Array at index 0 is ${arrayname[0]}"
+for i in "${array[@]}"; do echo $i; done #Print all the array elements
+for i in "${array[@]}"; do echo -n "$i "; done #Space separated
+ 
+How to read silently (without showing password)?
+read -p "Username : " variableUser
+read -sp "Password : " variablePass
+
+How to check BASH shell version?
+echo $BASH_VERSION
+4.3.48(1)-release
+
+How default owner and group is decided for a file?
+
+
+How to check permissions of a file?
+getfacl <file/directory>
+
+Why sh is used as an extension for shell scripts?
+For editors to format the content
+
+Which shells are present in the system?
+cat /etc/shells
+
 How to start a process if stopped. Check the same every minute and add in crontab.
 * * * * * bash -c "if [[ `ps -ef|grep <StartProcessCommand>|grep -v grep|wc -l` == "0" ]] ; then <StartProcessCommand> ; fi" 2>/dev/null >>/tmp/tmpfile
 
