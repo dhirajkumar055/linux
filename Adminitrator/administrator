@@ -1,3 +1,6 @@
+How to enable ipv6 forwarding?
+echo "IPV6FORWARDING=yes" >> /etc/sysconfig/network
+
 How to resolve error "Linux conntrack table is out of space"?
 sysctl -w net.netfilter.nf_conntrack_max=1000000
 echo "net.netfilter.nf_conntrack_max=1000000" >> /etc/sysctl.conf
