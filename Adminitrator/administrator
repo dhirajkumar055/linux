@@ -1,3 +1,7 @@
+How to resolve error "Linux conntrack table is out of space"?
+sysctl -w net.netfilter.nf_conntrack_max=1000000
+echo "net.netfilter.nf_conntrack_max=1000000" >> /etc/sysctl.conf
+
 Sort processes based on memory?
 ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem|head
 
