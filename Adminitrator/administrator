@@ -1,3 +1,6 @@
+Sort processes based on memory?
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem|head
+
 How to use switch case in shell?
 case expression in
  pattern )
