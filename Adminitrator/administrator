@@ -124,6 +124,18 @@ How to check groups?
 Check /etc/group
 getent group
 
+How to add user "jenkins" to group "docker"?
+sudo usermod -aG docker jenkins
+
+How to delete user "jenkins" from group "docker"?
+gpasswd -d jenkins docker
+
+Check groups of the logged in user?
+groups
+
+How to check groups of a user?
+groups <username>
+
 How to check users?
 /etc/passwd
 
