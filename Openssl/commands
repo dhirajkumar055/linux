@@ -1,0 +1,24 @@
+#Create a private key
+openssl genrsa
+openssl genrsa 4096
+
+#Create encrypted private key
+openssl genrsa -aes256
+Enter the passphrase:
+Verify the passphrase:
+
+openssl genrsa -des3
+
+#Redirect to file
+openssl genrsa -aes256 -out private.pem
+
+public key is also present in the same above generated key
+We can extract it using below command
+openssl rsa -in private.pem -outform PEM -pubout -out public.pem
+
+C : Country or Region
+O : Organization
+OU : Organizational Unit
+CN : Common Name
+
+Signature is created by certificate authority.
