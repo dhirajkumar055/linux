@@ -1,9 +1,140 @@
+How to enable ipv6 forwarding?
+echo "IPV6FORWARDING=yes" >> /etc/sysconfig/network
+
+How to resolve error "Linux conntrack table is out of space"?
+sysctl -w net.netfilter.nf_conntrack_max=1000000
+echo "net.netfilter.nf_conntrack_max=1000000" >> /etc/sysctl.conf
+
+Sort processes based on memory?
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem|head
+
+How to use switch case in shell?
+case expression in
+ pattern )
+  statements ;;
+ pattern )
+  statements ;;
+ * )
+ statements ;;
+esac
+
+LANG=C
+read value
+case $value in
+ [a-z] )
+  echo "user entered between a to z" ;;
+ [A-Z] )
+  echo "user entered between A to Z" ;;
+ [0-9] )
+  echo "user entered between 0 to 9" ;;
+ ? )
+  echo "user entered a special character" ;;
+ * )
+  echo "unknown input" ;;
+esac
+
+
+How to get square root and power functions?
+echo "scale=2;sqrt($variable)"|bc -l
+echo "scale=2;$variable^$variable"|bc -l
+
+How to get result upto 2 decimal?
+echo "scale=2;22.55/5"|bc
+
+How to use logical OR operator in conditions?
+if [condition1] || [condition2]
+or
+if [ condition1 -o condition2 ]
+or
+if [[ condition1 || condition2 ]]
+
+How to use logical AND operator in conditions?
+if [condition1] && [condition2]
+or
+if [ condition1 -a condition2 ]
+or
+if [[ condition1 && condition2 ]]
+
+How to keep the cursor on the same while taking input?
+echo -e "Enter the input : -c"
+read inputVariable
+if [ -e $inputVariable ]
+then
+ echo "$inputVarilable file is present"
+else
+ echo "$inputVariable file is not present"
+fi
+
+-f for regular files
+-d for directories
+-b for block special file : video or music or image files
+-c for character special file : Normal texts
+-s checks if file is not empty
+-r check if file has read permission
+-w check if file has write permission
+-x check if file has execute permission
+
+How to print the number of arguments?
+echo $#
+
+How to take all the inputs in an array?
+args=("$@")
+echo "${args[@]}" #Takes from $1 to end excludes $0(name of script)
+for i in "${args[@]}"; do echo $i; done #Print all the array elements
+for i in "${args[@]}"; do echo -n "$i "; done #Space separated
+
+What is the default variable read uses for input?
+REPLY
+read
+echo $REPLY
+
+How to read space separated input as an array?
+read -a arrayname
+echo "Array at index 0 is ${arrayname[0]}"
+for i in "${array[@]}"; do echo $i; done #Print all the array elements
+for i in "${array[@]}"; do echo -n "$i "; done #Space separated
+ 
+How to read silently (without showing password)?
+read -p "Username : " variableUser
+read -sp "Password : " variablePass
+
+How to check BASH shell version?
+echo $BASH_VERSION
+4.3.48(1)-release
+
+How default owner and group is decided for a file?
+
+
+How to check permissions of a file?
+getfacl <file/directory>
+
+Why sh is used as an extension for shell scripts?
+For editors to format the content
+
+Which shells are present in the system?
+cat /etc/shells
+
+How to start a process if stopped. Check the same every minute and add in crontab.
+* * * * * bash -c "if [[ `ps -ef|grep <StartProcessCommand>|grep -v grep|wc -l` == "0" ]] ; then <StartProcessCommand> ; fi" 2>/dev/null >>/tmp/tmpfile
+
 How to add user and groups?
 useradd <username>
 
 How to check groups?
 Check /etc/group
 getent group
+
+How to add user "jenkins" to group "docker"?
+sudo usermod -aG docker jenkins
+
+How to delete user "jenkins" from group "docker"?
+gpasswd -d jenkins docker
+
+Check groups of the logged in user?
+groups
+
+How to check groups of a user?
+groups <username>
 
 How to check users?
 /etc/passwd
@@ -414,3 +545,12 @@ yum repolist
 How to add new repo?
 yum-config-manager --add-repo <link>
 /etc/yum/pluginconf.d/subscription-manager.conf
+
+How to update crontab in docker?
+Running every 10th minute.
+RUN echo "*/10 * * * *  /path/to/script/for/running " | crontab -
+
+How to sleep infinitely?
+sleep infinity
+
+

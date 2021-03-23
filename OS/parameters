@@ -1,0 +1,2 @@
+echo 1500000 > /proc/sys/vm/min_free_kbytes
+sysctl vm.min_free_kbytes
