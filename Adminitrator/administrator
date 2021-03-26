@@ -1,3 +1,11 @@
+How to disable swap?
+lsblk
+blkid
+swapoff /dev/file/of/swap
+swapoff -a #disable all swaps from /proc/swaps
+Edit /etc/fstab and comment file-system of swap
+mount -a
+
 How to enable ipv6 forwarding?
 echo "IPV6FORWARDING=yes" >> /etc/sysconfig/network
 
