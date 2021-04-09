@@ -1,0 +1,6 @@
+config set repl-timeout 500
+config set client-output-buffer-limit 'slave 4096000000 4096000000 60'
+config set repl-backlog-size 1g
+config set notify-keyspace-events Ex
+config get dbfilename
+config get dir
