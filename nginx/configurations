@@ -17,6 +17,7 @@ Comment out in /etc/nginx/nginx.conf
 Add in /etc/hosts
 127.0.0.1 mydomain
 
+openssl req -new -x509 -newkey rsa:2048 -keyout MOK.priv -outform DER -out MOK.der -nodes -days 36500 -subj "/CN=Descriptive common name/"
 
 
 
