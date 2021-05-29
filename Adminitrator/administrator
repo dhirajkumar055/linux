@@ -1,3 +1,7 @@
+How to get data of a user from git?
+curl -X GET https://api.github.com/users/<myuser>/repos\?type=all
+Example: curl -X GET https://api.github.com/users/dhirajkumar055/repos\?type=all
+
 How to get the directory of current script?
 scriptsDirectory=$(dirname "$0")
 
