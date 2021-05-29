@@ -1,3 +1,6 @@
+How to delete final of n days ago?
+find . -maxdepth 1 -mtime +10|xargs ls -ld |grep "pattern"|awk '{print $9}'|xargs rm -rf
+
 How to update ulimit?
 Changes made by ulimit command:
 ulimit -n 4096
