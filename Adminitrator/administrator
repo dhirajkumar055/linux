@@ -1,3 +1,6 @@
+How to get the directory of current script?
+scriptsDirectory=$(dirname "$0")
+
 How to delete final of n days ago?
 find . -maxdepth 1 -mtime +10|xargs ls -ld |grep "pattern"|awk '{print $9}'|xargs rm -rf
 
