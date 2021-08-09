@@ -1,3 +1,9 @@
+What is update-alternatives command?
+alternatives creates, removes, maintains and displays information about the symbolic links comprising the alternatives system. The alternatives system is a reimplementation of the Debian alternatives system. It was rewritten primarily to remove the dependence on perl; it is intended to be a drop in replacement for Debian's update-dependencies script. This man page is a slightly modified version of the man page from the Debian project.
+It is possible for several programs fulfilling the same or similar functions to be installed on a single system at the same time. For example, many systems have several text editors installed at once. This gives choice to the users of a system, allowing each to use a different editor, if desired, but makes it difficult for a program to make a good choice of editor to invoke if the user has not specified a particular preference.
+
+update-alternatives --config editor
+
 How to get data of a user from git?
 curl -X GET https://api.github.com/users/<myuser>/repos\?type=all
 Example: curl -X GET https://api.github.com/users/dhirajkumar055/repos\?type=all
