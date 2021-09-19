@@ -1,0 +1,18 @@
+$TTL 86400
+@ IN SOA server.yourquestion.in. root.yourquestion.in. (
+  2020112511    ;Serial
+  3600          ;Refresh
+  1800          ;Retry
+  604800        ;Expire
+  86400         ;Minimum TTL
+)
+
+;Name Server Information
+@ IN NS server.yourquestion.in.
+
+;Reverse lookup for Name Server
+75 IN PTR server.yourquestion.in.
+
+;PTR record is IP address to hostname
+57 IN PTR workstation.yourquestion.in.
+37 IN PTR mail.yourquestion.in.
