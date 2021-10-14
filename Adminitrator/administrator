@@ -1,3 +1,55 @@
+How to create a service?
+At directory /etc/systemd/system
+create <name>.service file with below content
+[Service]
+ExecStart=/path/to/script/or/daemon/file/start.sh
+
+What is update-alternatives command?
+alternatives creates, removes, maintains and displays information about the symbolic links comprising the alternatives system. The alternatives system is a reimplementation of the Debian alternatives system. It was rewritten primarily to remove the dependence on perl; it is intended to be a drop in replacement for Debian's update-dependencies script. This man page is a slightly modified version of the man page from the Debian project.
+It is possible for several programs fulfilling the same or similar functions to be installed on a single system at the same time. For example, many systems have several text editors installed at once. This gives choice to the users of a system, allowing each to use a different editor, if desired, but makes it difficult for a program to make a good choice of editor to invoke if the user has not specified a particular preference.
+
+update-alternatives --config editor
+
+How to get data of a user from git?
+curl -X GET https://api.github.com/users/<myuser>/repos\?type=all
+Example: curl -X GET https://api.github.com/users/dhirajkumar055/repos\?type=all
+
+How to get the directory of current script?
+scriptsDirectory=$(dirname "$0")
+
+How to delete final of n days ago?
+find . -maxdepth 1 -mtime +10|xargs ls -ld |grep "pattern"|awk '{print $9}'|xargs rm -rf
+
+How to update ulimit?
+Changes made by ulimit command:
+ulimit -n 4096
+ulimit -Hn 65535
+will apply only for current user and session.
+
+In order to make it permanent, modify /etc/security/limits.conf and add below lines
+* soft nofile 4096
+* hard nofile 65535
+
+However, wildcard * won't apply for root user. So add below
+* soft nofile 4096
+* hard nofile 65535
+root soft nofile 4096
+root hard nofile 65535
+These limits will be applied after reboot.
+
+If you want to apply changes without reboot, modify /etc/pam.d/common-session and add below line:
+session required pam_limits.so
+
+Upon next login you will see updated limits.
+
+How to disable swap?
+lsblk
+blkid
+swapoff /dev/file/of/swap
+swapoff -a #disable all swaps from /proc/swaps
+Edit /etc/fstab and comment file-system of swap
+mount -a
+
 How to enable ipv6 forwarding?
 echo "IPV6FORWARDING=yes" >> /etc/sysconfig/network
 
