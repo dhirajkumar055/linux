@@ -1,0 +1,3 @@
+Error: starting vsftpd FAILED
+Solution: There was another service running on port 20 and 21
+From Internet : Check for listen and listen_ipv6 as well in /etc/vsftpd/vsftpd.conf
