@@ -1,15 +1,25 @@
 [Unit]
 Description=<Description about this service>
+After=network.target
 
 [Service]
 User=<Username>
+Group=<Groupname>
 WorkingDirectory=<Directory of script>
 ExecStart=<Script which needs to be executed>
+Environment=VARIABLE1=value_of_variable1
+Environment=VARIABLE2=value_of_variable2
 Restart=always
 TimeoutSec=300
 TimeoutStopSec=2
 Type=oneshot
 SendSIGKILL=yes
+LimitNOFILE=400000
+LimitNPROC=20000
 
 [Install]
 WantedBy=multi-user.target
+
+####
+#systemctl daemon-reload
+#systemctl edit servicefile.service --full
