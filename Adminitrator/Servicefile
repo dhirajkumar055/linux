@@ -1,0 +1,15 @@
+[Unit]
+Description=<Description about this service>
+
+[Service]
+User=<Username>
+WorkingDirectory=<Directory of script>
+ExecStart=<Script which needs to be executed>
+Restart=always
+TimeoutSec=300
+TimeoutStopSec=2
+Type=oneshot
+SendSIGKILL=yes
+
+[Install]
+WantedBy=multi-user.target
