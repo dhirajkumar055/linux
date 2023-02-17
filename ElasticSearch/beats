@@ -16,3 +16,4 @@ handles back pressure sensitive protocol
 
 filebeat Command:
 filebeat modules list
+filebeat modules enable system
