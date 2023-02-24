@@ -1,0 +1,3 @@
+Increase Filesystems in AWS EC2
+XFS : xfs_growfs -d /
+EXT : resize2fs /dev/[nvmen0p1]
