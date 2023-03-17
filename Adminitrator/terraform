@@ -1,0 +1,4 @@
+data "external" "check_files_for_an_hour" {
+  program = ["bash", "-c", "i=0; while [[ $i -lt 60 ]]; do ((i++)); if [ ! -f ../../fusion_proxy/pt/output.json ]; then sleep 60; fi; done ; echo {}"]
+  query = { }
+}

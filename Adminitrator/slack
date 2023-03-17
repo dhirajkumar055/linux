@@ -1,0 +1,11 @@
+Send message to channel
+
+python <<HEREDOC
+import requests
+import json
+import os
+SlackChannelName="#PublicOrPrivateChannelName"
+SlackUserDisplayName="SlackUserDisplayName"
+SlackData = {'text': "Message to send" ,"channel": SlackChannelName ,"username": SlackUserDisplayName }
+response = requests.post(SlackTokenUrl, data=json.dumps(SlackData),headers={'Content-Type': 'application/json'})
+HEREDOC

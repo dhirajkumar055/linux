@@ -229,3 +229,5 @@ Search DSL components
 Query and filter
 
 
+Create index:
+curl -X POST "http://localhost:9200/index1"

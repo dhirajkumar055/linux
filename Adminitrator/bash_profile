@@ -1,0 +1,9 @@
+#!/bin/bash
+
+alias ll='ls -larth'
+#PS1="%n@%m.in %1~ %# "
+
+PS1="%n@yourquestion.in > "
+
+#Logins
+alias yq='_(){sshpass -p "$(cat /path/to/password/file)" ssh -o StrictHostKeyChecking=no dheeraj.chopra@$1};_'

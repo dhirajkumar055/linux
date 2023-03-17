@@ -1,0 +1,24 @@
+$TTL 3D
+@ IN SOA server.yourquestion.in. root.yourquestion.in. (
+2020112511      ;Serial
+3600            ;Refresh
+1800            ;Retry
+604800          ;Expire
+86400           ;Minimum TTL
+)
+;Name Server Information
+@ IN NS server.yourquestion.in.
+@ IN NS workstation.yourquestion.in.
+@ IN MX 5 mail.yourquestion.in.
+
+;IP  address of Name Server
+server.yourquestion.in. IN A 172.31.2.75
+
+;Mail Exchanger
+mail.yourquestion.in. IN A 172.31.2.37
+
+;A - Record HostName To IP address
+workstation.yourquestion.in. IN A 172.31.2.57
+
+;CNAME record
+ftp IN CNAME workstation.yourquestion.in
