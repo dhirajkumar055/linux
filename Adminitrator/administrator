@@ -1,3 +1,10 @@
+How to check if previous command is failed?
+if [ $? -eq 0 ]; then
+  echo "Previous command succeeded"
+else
+  echo "Previous command failed"
+fi
+
 How to create a service?
 At directory /etc/systemd/system
 create <name>.service file with below content

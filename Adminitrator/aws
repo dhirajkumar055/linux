@@ -5,6 +5,9 @@ If there are multiple partitions:
 * xfs_growfs -d /
 EXT : resize2fs /dev/[nvmen0p1]
 
+Get IP address using instance-id
+aws ec2 describe-instances --instance-ids $instance_id --region ap-south-1|jq .Reservations[].Instances[].PrivateIpAddress|tr -d '"'
+
 Get tags and create snapshots attaching those tags.
 tags=$(aws ec2 describe-volumes --volume-ids VOLUME_ID --region ap-south-1 --query "Volumes[*].Tags" |jq ".[]"|sed 's/:/=/'|tr -d '"')
 aws ec2 create-snapshot --volume-id VOLUME_ID --tag-specifications "ResourceType="snapshot",Tags=$tags"
