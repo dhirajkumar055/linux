@@ -1,0 +1,17 @@
+Login
+mongo --port "port" -u "username" -p "password" --authenticationDatabase "admin"
+
+Get cluster details
+
+Get databases
+1.
+use config
+db.databases.find()
+
+2.
+show dbs
+
+Add Database
+use dheeraj
+db.myCollection.insertOne( { dheeraj : 1 } );
+
