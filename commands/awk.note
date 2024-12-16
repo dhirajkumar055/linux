@@ -74,3 +74,5 @@ awk -F: '$5=="" && $1=="kibana" {print $2}' /etc/passwd
 awk 'BEGIN{FS=",";OFS=":";ORS="\n\n"}{print $1,$2,$3}' csvwithspaces 
 awk -F: 'BEGIN{OFS="==";ORS="\n\n"};{print $1,$2}' /etc/passwd|head -10
 
+How to replace multi spaces with single space using awk in Linux.
+awk '{ gsub(/[ ]+/," "); print }'
