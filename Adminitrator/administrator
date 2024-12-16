@@ -612,4 +612,10 @@ RUN echo "*/10 * * * *  /path/to/script/for/running " | crontab -
 How to sleep infinitely?
 sleep infinity
 
-
+#!/bin/bash
+if [ "$1" = "template0" ] || [ "$1" = "template1" ] || [ "$1" = "rdsadmin" ]; then
+    echo "No connection required for $1"
+else
+    echo $1 >>db_extensions_list 
+    psql -d $1 -t -c "SELECT * FROM pg_extension" >>db_extensions_list 
+fi
